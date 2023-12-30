@@ -8,25 +8,29 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State var showScreenCover: Bool = false
     
     var body: some View {
-        TabView {
-            RoundedRectangle(cornerSize: /*@START_MENU_TOKEN@*/CGSize(width: 20, height: 10)/*@END_MENU_TOKEN@*/)
-                .frame(width:200, height: 400)
-                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-            HomePage()
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Home")
-                }
-            ProfilePage()
-                .tabItem {
-                    Image(systemName: "person.crop.circle")
-                    Text("Me")
-                }
+        VStack{
+            Text("HOLAA")
+            Button("Presiona aca") {
                 
-        }.frame(height: 400)
-            .tabViewStyle(PageTabViewStyle())
+                showScreenCover = true
+            }
+        }
+        .sheet(isPresented: $showScreenCover , onDismiss:{ showScreenCover = false}, content: {
+            ZStack {
+                Color.blue.ignoresSafeArea()
+                Button("Salir") {
+                    showScreenCover = false
+                }
+                .foregroundColor(.green)
+                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 75)
+                .background(Color.gray)
+                .cornerRadius(10)
+                .shadow(radius: 8)
+            }
+        })
             
     }
 }
@@ -34,33 +38,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-    }
-}
-
-struct HomePage: View {
-    var body: some View {
-        VStack{
-            Image(systemName: "house.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
-            Text("hola".capitalized)
-                .bold()
-        }
-        
-    }
-}
-
-struct ProfilePage: View {
-    var body: some View {
-        VStack{
-            Image(systemName: "person.circle")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100)
-            Text("Configurar Usuario")
-                .bold()
-        }
-        
     }
 }
