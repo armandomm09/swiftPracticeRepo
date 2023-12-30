@@ -8,51 +8,59 @@ import SwiftUI
 
 struct ContentView: View {
     
-    //Mark 1:
-    
-    struct Dispositivo {
-        let nombreDispositivo: String
-        let nombreImagen: String
-    }
-    
-    let dispositivosCasa = [
-        Dispositivo(nombreDispositivo: "Laptop", nombreImagen: "laptopcomputer"),
-        Dispositivo(nombreDispositivo: "Mac Mini", nombreImagen: "macmini"),
-        Dispositivo(nombreDispositivo: "AppleTV", nombreImagen: "appletv")
-    ]
-    
-    let dispositivosTrabajo = [
-        Dispositivo(nombreDispositivo: "iPhone", nombreImagen: "iphone"),
-        Dispositivo(nombreDispositivo: "iPad", nombreImagen: "ipad"),
-        Dispositivo(nombreDispositivo: "HomePod", nombreImagen: "homepod"),
-        Dispositivo(nombreDispositivo: "AppleWatch", nombreImagen: "applewatch")
-    ]
     
     var body: some View {
-        NavigationView {
-            List {
-                Section(header: Text("House")) {
-                    ForEach(dispositivosCasa, id: \.nombreDispositivo) { dispositivo in
-                        NavigationLink(destination: Text(dispositivo.nombreDispositivo)) {
-                            Label(dispositivo.nombreDispositivo, systemImage: dispositivo.nombreImagen)
-                        }
-                    }
+        TabView {
+            RoundedRectangle(cornerSize: /*@START_MENU_TOKEN@*/CGSize(width: 20, height: 10)/*@END_MENU_TOKEN@*/)
+                .frame(width:200, height: 400)
+                .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+            HomePage()
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
                 }
-                Section(header: Text("Work")) {
-                    ForEach(dispositivosTrabajo, id: \.nombreDispositivo) { dispositivo in
-                        NavigationLink(destination: Text(dispositivo.nombreDispositivo)) {
-                            Label(dispositivo.nombreDispositivo, systemImage: dispositivo.nombreImagen)
-                        }
-                    }
+            ProfilePage()
+                .tabItem {
+                    Image(systemName: "person.crop.circle")
+                    Text("Me")
                 }
-            }
-            .listStyle(InsetGroupedListStyle())
-        }
+                
+        }.frame(height: 400)
+            .tabViewStyle(PageTabViewStyle())
+            
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct HomePage: View {
+    var body: some View {
+        VStack{
+            Image(systemName: "house.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
+            Text("hola".capitalized)
+                .bold()
+        }
+        
+    }
+}
+
+struct ProfilePage: View {
+    var body: some View {
+        VStack{
+            Image(systemName: "person.circle")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100)
+            Text("Configurar Usuario")
+                .bold()
+        }
+        
     }
 }
