@@ -8,17 +8,24 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var contador: Int = 0
+    @State var offsets: CGSize = .zero
     
     var body: some View {
         Rectangle()
             .cornerRadius(20)
             .frame(width: 100, height: 100)
-            .onTapGesture(count: 2) {
-                contador += 1
-                print("Tappeado \(contador) veces")
-            }
-            
+            .offset(x: offsets.width, y: offsets.height)
+            .gesture(DragGesture()
+                .onChanged({ value in
+                    print(value)
+                    offsets = value.translation
+                })
+                    .onEnded({ _ in
+                            withAnimation(.spring()){
+                                offsets = .zero
+                            }
+                    }))
+           
             
     }
 }
