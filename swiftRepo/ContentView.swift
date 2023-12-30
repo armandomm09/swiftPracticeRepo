@@ -8,30 +8,22 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var showScreenCover: Bool = false
+    @State var showAlert: Bool = false
     
     var body: some View {
-        VStack{
-            Text("HOLAA")
-            Button("Presiona aca") {
-                
-                showScreenCover = true
+        VStack {
+            Text("Mandar forms")
+            Button("Mandar"){
+                showAlert = true
             }
         }
-        .sheet(isPresented: $showScreenCover , onDismiss:{ showScreenCover = false}, content: {
-            ZStack {
-                Color.blue.ignoresSafeArea()
-                Button("Salir") {
-                    showScreenCover = false
-                }
-                .foregroundColor(.green)
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: 75)
-                .background(Color.gray)
-                .cornerRadius(10)
-                .shadow(radius: 8)
-            }
+        .alert(isPresented: $showAlert, content: {
+            Alert(title: Text("Mandar?"), message: Text("Seguro que quieres mandar el forms?"), primaryButton: Alert.Button.default(Text("Aceptar"), action: {
+                print("Se mando")
+            }), secondaryButton: Alert.Button.destructive(Text("Cancelar"), action: {
+                print("No se mando")
+            }))
         })
-            
     }
 }
 
