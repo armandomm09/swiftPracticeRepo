@@ -8,25 +8,18 @@ import SwiftUI
 
 struct ContentView: View {
     
-    
+    @State var contador: Int = 0
     
     var body: some View {
-        Text("Menu Context")
-            .padding()
-            .contextMenu(
-                ContextMenu(menuItems: {
-                    Button("Equpo 1") {
-                        print("Equipo 1 elegido")
-                    }
-                    Button("Equipo 2") {
-                        print("Equipo 2 elegido")
-                    }
-                    Button(action: {
-                        print("Equipoo 3 elegido")
-                    }, label: {
-                        Label("Equipo 3", systemImage: "iphone")
-                    })
-            }))
+        Rectangle()
+            .cornerRadius(20)
+            .frame(width: 100, height: 100)
+            .onTapGesture(count: 2) {
+                contador += 1
+                print("Tappeado \(contador) veces")
+            }
+            
+            
     }
 }
 
