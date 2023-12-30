@@ -8,21 +8,28 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var showAlert: Bool = false
+    @State var sheetShown: Bool = false
     
     var body: some View {
-        VStack {
-            Text("Mandar forms")
+        VStack{
+            Text("Mandar form?")
+                .padding()
             Button("Mandar"){
-                showAlert = true
+                sheetShown = true
             }
         }
-        .alert(isPresented: $showAlert, content: {
-            Alert(title: Text("Mandar?"), message: Text("Seguro que quieres mandar el forms?"), primaryButton: Alert.Button.default(Text("Aceptar"), action: {
-                print("Se mando")
-            }), secondaryButton: Alert.Button.destructive(Text("Cancelar"), action: {
-                print("No se mando")
-            }))
+        .actionSheet(isPresented: $sheetShown, content: {
+            ActionSheet(title: Text("Mandar forms"), message: Text("Como lo vas a mandar?"),
+                        buttons: [
+                            .default(Text("Mandar en raw"), action: {
+                print("Se mando en raw")
+            }),
+                            .default(Text("Mandar guardado"), action: {
+                                print("Se mando lo guardado")
+                            }),
+                            .destructive(Text("Cancelar"), action: {
+                                print("No se mando")
+                            })])
         })
     }
 }
