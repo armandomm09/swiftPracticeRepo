@@ -6,57 +6,36 @@
 //
 import SwiftUI
 
-
-struct Dispositivo {
-    let name: String
-    let systemImage: String
+struct NewButtonModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.body)
+            .foregroundColor(.white)
+            .padding()
+            .background(Color.blue)
+            .cornerRadius(50)
+    }
 }
 
-let devicesArray = [
-Dispositivo(name: "iPad", systemImage: "ipad"),
-Dispositivo(name: "iPhone", systemImage: "iphone"),
-Dispositivo(name: "HomePod", systemImage: "homepodmini"),
-Dispositivo(name: "Mac Mini", systemImage: "macmini"),
-Dispositivo(name: "Apple TV", systemImage: "appletv")
-]
-
+extension View {
+    func buttonModifier() -> some View {
+        self.modifier(NewButtonModifier())
+    }
+}
 
 struct ContentView: View {
     
    
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(devicesArray, id: \.name) {dispositivo in
-                    Label(dispositivo.name, systemImage: dispositivo.systemImage)
-                        .swipeActions{
-                            Button {
-                                print("Fav")
-                            } label: {
-                                Label("Favorito", systemImage: "star")
-                            }
-                            .tint(.indigo)
-                            Button {
-                                print("Share")
-                            } label: {
-                                Label("Share", systemImage: "square.and.arrow.up")
-                            }
-                            .tint(.blue)
-                        }
-                        .swipeActions(edge: .leading) {
-                            Button {
-                                print("likeado")
-                            } label: {
-                                Label("Like", systemImage: "hand.thumbsup")
-                            }
-                            .tint(.green)
-                        }
-                }
+        VStack{
+            Text("HOLA")
+                .bold()
+                .padding()
+             
+            Button("Boton"){
+                print("botonpresionado")
             }
-            .refreshable(action: {
-                print("Refresheado")
-            })
-            .navigationTitle("Devices")
+            .buttonModifier()
         }
     }
 }
