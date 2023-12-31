@@ -15,7 +15,7 @@ struct Dispositivo {
 let devicesArray = [
 Dispositivo(name: "iPad", systemImage: "ipad"),
 Dispositivo(name: "iPhone", systemImage: "iphone"),
-Dispositivo(name: "Homepod", systemImage: "homepodmini"),
+Dispositivo(name: "HomePod", systemImage: "homepodmini"),
 Dispositivo(name: "Mac Mini", systemImage: "macmini"),
 Dispositivo(name: "Apple TV", systemImage: "appletv")
 ]
