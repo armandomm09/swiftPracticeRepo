@@ -8,29 +8,32 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var sheetShown: Bool = false
+    @State var teamName: String = ""
+    @AppStorage("nombreEquipo") var storagedTeamName: String = ""
     
     var body: some View {
-        VStack{
-            Text("Mandar form?")
+        Form {
+            TextField("Equipo", text: $teamName)
+            HStack{
+                Spacer()
+                Button("Guardar"){
+                    storagedTeamName = teamName
+                }
                 .padding()
-            Button("Mandar"){
-                sheetShown = true
+                Spacer()
+            }
+            HStack{
+                Spacer()
+                Button("Imprimir Equipo"){
+                    print(UserDefaults.standard.string(forKey: "nombreEquipo"))
+                }
+                .padding()
+                Spacer()
             }
         }
-        .actionSheet(isPresented: $sheetShown, content: {
-            ActionSheet(title: Text("Mandar forms"), message: Text("Como lo vas a mandar?"),
-                        buttons: [
-                            .default(Text("Mandar en raw"), action: {
-                print("Se mando en raw")
-            }),
-                            .default(Text("Mandar guardado"), action: {
-                                print("Se mando lo guardado")
-                            }),
-                            .destructive(Text("Cancelar"), action: {
-                                print("No se mando")
-                            })])
-        })
+        .onAppear{
+            teamName = storagedTeamName
+        }
     }
 }
 
