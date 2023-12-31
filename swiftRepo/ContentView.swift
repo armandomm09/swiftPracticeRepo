@@ -6,23 +6,58 @@
 //
 import SwiftUI
 
+
+struct Dispositivo {
+    let name: String
+    let systemImage: String
+}
+
+let devicesArray = [
+Dispositivo(name: "iPad", systemImage: "ipad"),
+Dispositivo(name: "iPhone", systemImage: "iphone"),
+Dispositivo(name: "Homepod", systemImage: "homepodmini"),
+Dispositivo(name: "Mac Mini", systemImage: "macmini"),
+Dispositivo(name: "Apple TV", systemImage: "appletv")
+]
+
+
 struct ContentView: View {
     
-    private var imagenURL = URL(string: "https://developer.apple.com/swift/images/swift-og.png")
-    
+   
     var body: some View {
-        AsyncImage(url: imagenURL) { Image in
-            Image
-                .resizable()
-                .scaledToFit()
-                .cornerRadius(20)
-                .padding()
-                .frame(width: 200)
-            
-        } placeholder: {
-            ProgressView()
+        NavigationView {
+            List {
+                ForEach(devicesArray, id: \.name) {dispositivo in
+                    Label(dispositivo.name, systemImage: dispositivo.systemImage)
+                        .swipeActions{
+                            Button {
+                                print("Fav")
+                            } label: {
+                                Label("Favorito", systemImage: "star")
+                            }
+                            .tint(.indigo)
+                            Button {
+                                print("Share")
+                            } label: {
+                                Label("Share", systemImage: "square.and.arrow.up")
+                            }
+                            .tint(.blue)
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                print("likeado")
+                            } label: {
+                                Label("Like", systemImage: "hand.thumbsup")
+                            }
+                            .tint(.green)
+                        }
+                }
+            }
+            .refreshable(action: {
+                print("Refresheado")
+            })
+            .navigationTitle("Devices")
         }
-
     }
 }
 
