@@ -31,7 +31,7 @@ struct ContentView: View {
                     Label(dispositivo.name, systemImage: dispositivo.systemImage)
                         .swipeActions{
                             Button {
-                                print("Fav")
+                                print("Favo")
                             } label: {
                                 Label("Favorito", systemImage: "star")
                             }
